@@ -1,9 +1,6 @@
-#!/usr/bin/env node
-const _ = require('lodash');
-const fs = require('fs');
-const path = require('path');
-
-const { program } = require('commander');
+import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
 
 const templates = {
   add: (key, value) => `  + ${key}: ${value}`,
@@ -52,16 +49,4 @@ const genDiff = (filename1, filename2) => {
   return `{\n${diff.join('\n')}\n}`;
 };
 
-program
-  .name('gendiff')
-  .arguments('filepath1')
-  .arguments('filepath2')
-  .description('Compares two configuration files and shows a difference.')
-  .action((filename1, filename2) => {
-    const diff = genDiff(filename1, filename2);
-    console.log(diff);
-  })
-  .version('1.0.0')
-  .option('-f, --format <type>', 'output format');
-
-program.parse();
+export default genDiff;
