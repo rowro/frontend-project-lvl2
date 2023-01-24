@@ -13,6 +13,7 @@ const result = `{
   + verbose: true
 }`;
 
+// TODO: Дописать тесты для других расширений и пустых файлов
 describe('genDiff', () => {
   test('Diff flat json', () => {
     const diff = genDiff(filename1, filename2);
