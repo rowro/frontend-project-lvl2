@@ -13,6 +13,6 @@ program
     console.log(diff);
   })
   .version('1.0.0')
-  .option('-f, --format <type>', 'output format');
+  .option('-f, --format <type>', 'output format', 'stylish');
 
 program.parse();
