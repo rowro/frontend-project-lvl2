@@ -8,3 +8,6 @@
 
 ### Diff YAML files
 [![asciicast](https://asciinema.org/a/30HUvzHo1UU94OoaO6znJ158A.svg)](https://asciinema.org/a/30HUvzHo1UU94OoaO6znJ158A)
+
+### Diff recursive structure
+[![asciicast](https://asciinema.org/a/9TXZwIM1cOX95VNBEtneFuRLw.svg)](https://asciinema.org/a/9TXZwIM1cOX95VNBEtneFuRLw)
