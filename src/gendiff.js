@@ -15,7 +15,7 @@ const parseFile = (filename) => {
     return JSON.parse(file);
   }
 
-  return {};
+  throw new Error('Only json files accepted');
 };
 
 const genDiff = (filename1, filename2) => {
@@ -46,7 +46,7 @@ const genDiff = (filename1, filename2) => {
     return [templates.remove(key, value1), templates.add(key, value2)];
   });
 
-  return `{\n${diff.join('\n')}\n}`;
+  return diff.length ? `{\n${diff.join('\n')}\n}` : '{}';
 };
 
 export default genDiff;
