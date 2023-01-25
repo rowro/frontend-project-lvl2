@@ -1,16 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
-
-const parseFile = (filename) => {
-  const file = fs.readFileSync(filename, 'utf8');
-
-  if (path.extname(filename) === '.json') {
-    return JSON.parse(file);
-  }
-
-  throw new Error('Only json files accepted');
-};
+import parseFile from './parsers.js';
 
 const findDiff = (obj1, obj2) => {
   const keys = _.uniq([
