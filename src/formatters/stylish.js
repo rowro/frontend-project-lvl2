@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import isArray from 'lodash/isArray.js';
 
 const SPACE = ' ';
 const SPACE_COUNT = 4;

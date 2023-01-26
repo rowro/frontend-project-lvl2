@@ -1,7 +1,7 @@
-import uniq from 'lodash/uniq';
-import sortBy from 'lodash/sortBy';
-import isObject from 'lodash/isObject';
-import isUndefined from 'lodash/isUndefined';
+import uniq from 'lodash/uniq.js';
+import sortBy from 'lodash/sortBy.js';
+import isObject from 'lodash/isObject.js';
+import isUndefined from 'lodash/isUndefined.js';
 import parseFile from './parsers.js';
 import getFormatter from './formatters/index.js';
 

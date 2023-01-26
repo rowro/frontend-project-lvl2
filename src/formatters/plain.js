@@ -1,6 +1,6 @@
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import isArray from 'lodash/isArray.js';
+import isObject from 'lodash/isObject.js';
+import isString from 'lodash/isString.js';
 
 const toString = (value) => {
   if (isObject(value)) {
