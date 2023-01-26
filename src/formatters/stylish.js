@@ -11,6 +11,13 @@ const chars = {
 };
 
 const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}: ${value}`.trimEnd();
+const getRootTemplate = (items, depth) => {
+  if (!items.length) {
+    return '{}';
+  }
+
+  return `{\n${items.join('\n')}\n${SPACE.repeat(SPACE_COUNT * (depth - 1))}}`;
+};
 
 const stylish = (item, depth = 1) => {
   const values = item.flatMap(({
@@ -34,11 +41,7 @@ const stylish = (item, depth = 1) => {
     return getTemplate(spacer, chars[action], key, nextIter(value));
   });
 
-  if (!values.length) {
-    return '{}';
-  }
-
-  return `{\n${values.join('\n')}\n${SPACE.repeat(SPACE_COUNT * (depth - 1))}}`;
+  return getRootTemplate(values, depth);
 };
 
 export default stylish;
