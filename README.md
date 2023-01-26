@@ -14,3 +14,6 @@
 
 ### Diff plain formatter
 [![asciicast](https://asciinema.org/a/lFdN0nvwtB3bNtOHeIxBGoy4d.svg)](https://asciinema.org/a/lFdN0nvwtB3bNtOHeIxBGoy4d)
+
+### Diff json formatter
+[![asciicast](https://asciinema.org/a/WeiAMNXUWvwfKW22mwzg0nhPT.svg)](https://asciinema.org/a/WeiAMNXUWvwfKW22mwzg0nhPT)
