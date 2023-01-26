@@ -21,29 +21,23 @@ const messages = {
   updated: (path, valueFrom, valueTo) => `Property '${path}' was updated. From ${toString(valueFrom)} to ${toString(valueTo)}`,
 };
 
-const plain = (item, path = '') => {
-  if (!isArray(item)) {
-    return item;
+const plain = (item, path = '') => item.flatMap(({
+  action, key, valueFrom, valueTo,
+}) => {
+  const newPath = path ? `${path}.${key}` : key;
+
+  switch (action) {
+    case 'updated':
+      return messages.updated(newPath, valueFrom, valueTo);
+    case 'added':
+      return messages.added(newPath, valueTo);
+    case 'removed':
+      return messages.removed(newPath);
+    case 'deepChanges':
+      return isArray(valueTo) ? plain(valueTo, newPath) : valueTo;
+    default:
+      return [];
   }
-
-  return item.flatMap(({
-    action, key, valueFrom, valueTo,
-  }) => {
-    const newPath = path ? `${path}.${key}` : key;
-
-    switch (action) {
-      case 'updated':
-        return messages.updated(newPath, valueFrom, valueTo);
-      case 'added':
-        return messages.added(newPath, valueTo);
-      case 'removed':
-        return messages.removed(newPath);
-      case 'deepChanges':
-        return plain(valueTo, newPath);
-      default:
-        return [];
-    }
-  }).join('\n');
-};
+}).join('\n');
 
 export default plain;

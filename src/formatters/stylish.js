@@ -13,10 +13,6 @@ const chars = {
 const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}: ${value}`.trimEnd();
 
 const stylish = (item, depth = 1) => {
-  if (!isArray(item)) {
-    return String(item);
-  }
-
   const values = item.flatMap(({
     action,
     key,
@@ -24,7 +20,7 @@ const stylish = (item, depth = 1) => {
     valueTo,
   }) => {
     const spacer = SPACE.repeat((SPACE_COUNT * depth) - 2);
-    const nextIter = (val) => stylish(val, depth + 1);
+    const nextIter = (val) => (isArray(val) ? stylish(val, depth + 1) : String(val));
 
     if (action === 'updated') {
       return [
