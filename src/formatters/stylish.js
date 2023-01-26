@@ -27,7 +27,7 @@ const stylish = (item, depth = 1) => {
     valueTo,
   }) => {
     const spacer = SPACE.repeat((SPACE_COUNT * depth) - 2);
-    const nextIter = (val) => (isArray(val) ? stylish(val, depth + 1) : String(val));
+    const nextIter = (val) => (isArray(val) ? stylish(val, depth + 1) : val);
 
     if (action === 'updated') {
       return [
