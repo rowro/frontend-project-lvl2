@@ -10,7 +10,7 @@ const chars = {
   deepChanges: ' ',
 };
 
-const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}: ${value}`.trimEnd();
+const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}: ${value}`.trimRight();
 const getRootTemplate = (items, depth) => {
   if (!items.length) {
     return '{}';
