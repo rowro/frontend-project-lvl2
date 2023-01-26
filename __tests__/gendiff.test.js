@@ -20,6 +20,7 @@ const filenameYaml2 = getFixturePath('file2.yaml');
 
 const filenameResultStylish = getFixturePath('resultStylish.txt');
 const filenameResultPlain = getFixturePath('resultPlain.txt');
+const filenameResultJson = getFixturePath('result.json');
 
 const filenameTxt = getFixturePath('fileText.txt');
 const filenameEmpty = getFixturePath('fileEmpty.json');
@@ -27,10 +28,12 @@ const filenameEmpty = getFixturePath('fileEmpty.json');
 describe('genDiff', () => {
   let resultStylish;
   let resultPlain;
+  let resultJson;
 
   beforeEach(() => {
     resultStylish = fs.readFileSync(filenameResultStylish, 'utf8').trim();
     resultPlain = fs.readFileSync(filenameResultPlain, 'utf8').trim();
+    resultJson = fs.readFileSync(filenameResultJson, 'utf8').trim();
   });
 
   test('Diff json', () => {
@@ -45,6 +48,10 @@ describe('genDiff', () => {
   test('Diff with plain formatter', () => {
     expect(genDiff(filenameJson1, filenameJson2, 'plain')).toEqual(resultPlain);
     expect(genDiff(filenameEmpty, filenameEmpty)).toEqual('{}');
+  });
+
+  test('Diff with json formatter', () => {
+    expect(genDiff(filenameJson1, filenameJson2, 'json')).toEqual(resultJson);
   });
 
   test('Diff accept only .json and .yml files', () => {
