@@ -10,7 +10,7 @@ const chars = {
   deepChanges: ' ',
 };
 
-const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}:${value !== '' ? ` ${value}` : ''}`;
+const getTemplate = (spacer, char, key, value) => `${spacer}${char} ${key}: ${value}`;
 const getRootTemplate = (items, depth) => {
   if (!items.length) {
     return '{}';
