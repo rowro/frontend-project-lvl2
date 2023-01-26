@@ -42,12 +42,14 @@ const findDiff = (obj1, obj2) => {
 
     const action = getAction(value1, value2);
     const valueFrom = ['updated', 'removed'].includes(action) ? getTree(value1) : undefined;
+    const valueTo = action !== 'removed' ? getTree(value2) : undefined;
 
-    let valueTo;
     if (action === 'deepChanges') {
-      valueTo = findDiff(value1, value2);
-    } else if (action !== 'removed') {
-      valueTo = getTree(value2);
+      return {
+        action,
+        key,
+        valueTo: findDiff(value1, value2),
+      };
     }
 
     return {

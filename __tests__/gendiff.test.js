@@ -1,6 +1,4 @@
-import {
-  beforeEach, describe, expect, test,
-} from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -26,31 +24,25 @@ const filenameTxt = getFixturePath('fileText.txt');
 const filenameEmpty = getFixturePath('fileEmpty.json');
 
 describe('genDiff', () => {
-  let resultStylish;
-  let resultPlain;
-  let resultJson;
-
-  beforeEach(() => {
-    resultStylish = fs.readFileSync(filenameResultStylish, 'utf8').trim();
-    resultPlain = fs.readFileSync(filenameResultPlain, 'utf8').trim();
-    resultJson = fs.readFileSync(filenameResultJson, 'utf8').trim();
-  });
-
   test('Diff json', () => {
+    const resultStylish = fs.readFileSync(filenameResultStylish, 'utf8').trim();
     expect(genDiff(filenameJson1, filenameJson2)).toEqual(resultStylish);
     expect(genDiff(filenameEmpty, filenameEmpty)).toEqual('{}');
   });
 
   test('Diff yaml', () => {
+    const resultStylish = fs.readFileSync(filenameResultStylish, 'utf8').trim();
     expect(genDiff(filenameYaml1, filenameYaml2)).toEqual(resultStylish);
   });
 
   test('Diff with plain formatter', () => {
+    const resultPlain = fs.readFileSync(filenameResultPlain, 'utf8').trim();
     expect(genDiff(filenameJson1, filenameJson2, 'plain')).toEqual(resultPlain);
     expect(genDiff(filenameEmpty, filenameEmpty)).toEqual('{}');
   });
 
   test('Diff with json formatter', () => {
+    const resultJson = fs.readFileSync(filenameResultJson, 'utf8').trim();
     expect(genDiff(filenameJson1, filenameJson2, 'json')).toEqual(resultJson);
   });
 
