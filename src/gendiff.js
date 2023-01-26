@@ -66,6 +66,8 @@ const genDiff = (filename1, filename2, formatterName = 'stylish') => {
 
   const diff = findDiff(obj1, obj2);
 
+  console.dir(diff, { depth: null });
+
   return formatter(diff);
 };
 
