@@ -18,26 +18,32 @@ const filenameJson2 = getFixturePath('file2.json');
 const filenameYaml1 = getFixturePath('file1.yml');
 const filenameYaml2 = getFixturePath('file2.yaml');
 
-const filenameResult = getFixturePath('result.txt');
+const filenameResultStylish = getFixturePath('resultStylish.txt');
+const filenameResultPlain = getFixturePath('resultPlain.txt');
 
 const filenameTxt = getFixturePath('fileText.txt');
 const filenameEmpty = getFixturePath('fileEmpty.json');
 
 describe('genDiff', () => {
-  let result;
+  let resultStylish;
+  let resultPlain;
+
   beforeEach(() => {
-    result = fs.readFileSync(filenameResult, 'utf8').trim();
+    resultStylish = fs.readFileSync(filenameResultStylish, 'utf8').trim();
+    resultPlain = fs.readFileSync(filenameResultPlain, 'utf8').trim();
   });
 
   test('Diff json', () => {
-    expect(genDiff(filenameJson1, filenameJson2)).toEqual(result);
+    expect(genDiff(filenameJson1, filenameJson2)).toEqual(resultStylish);
+    expect(genDiff(filenameEmpty, filenameEmpty)).toEqual('{}');
   });
 
   test('Diff yaml', () => {
-    expect(genDiff(filenameYaml1, filenameYaml2)).toEqual(result);
+    expect(genDiff(filenameYaml1, filenameYaml2)).toEqual(resultStylish);
   });
 
-  test('Diff empty', () => {
+  test('Diff with plain formatter', () => {
+    expect(genDiff(filenameJson1, filenameJson2, 'plain')).toEqual(resultPlain);
     expect(genDiff(filenameEmpty, filenameEmpty)).toEqual('{}');
   });
 

@@ -8,8 +8,8 @@ program
   .arguments('filepath1')
   .arguments('filepath2')
   .description('Compares two configuration files and shows a difference.')
-  .action((filename1, filename2) => {
-    const diff = genDiff(filename1, filename2);
+  .action((filename1, filename2, options) => {
+    const diff = genDiff(filename1, filename2, options.format);
     console.log(diff);
   })
   .version('1.0.0')

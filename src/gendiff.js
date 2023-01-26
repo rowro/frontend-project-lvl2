@@ -1,22 +1,31 @@
 import _ from 'lodash';
 import parseFile from './parsers.js';
-import stylish from './stylish.js';
+import getFormatter from './formatters/index.js';
 
-const getTree = (obj) => Object.keys(obj).map((key) => {
-  const value = obj[key];
-
-  if (_.isObject(value)) {
-    return { action: null, key, value: getTree(value) };
+const getTree = (data) => {
+  if (!_.isObject(data)) {
+    return data;
   }
 
-  return { action: null, key, value };
-});
+  return Object.entries(data).map(([key, value]) => ({
+    action: 'noChanges',
+    key,
+    valueTo: _.isObject(value) ? getTree(value) : value,
+  }));
+};
 
-const getNode = (action, key, value) => ({
-  action,
-  key,
-  value: _.isObject(value) ? getTree(value) : value,
-});
+const getAction = (value1, value2) => {
+  const isAdded = _.isUndefined(value1);
+  const isRemoved = _.isUndefined(value2);
+  const isUpdated = !isRemoved && !isAdded && value1 !== value2;
+  const isDeepChanges = isUpdated && _.isObject(value1) && _.isObject(value2);
+
+  if (isDeepChanges) return 'deepChanges';
+  if (isUpdated) return 'updated';
+  if (isRemoved) return 'removed';
+  if (isAdded) return 'added';
+  return 'noChanges';
+};
 
 const findDiff = (obj1, obj2) => {
   const keys = _.uniq([
@@ -27,37 +36,32 @@ const findDiff = (obj1, obj2) => {
   return _.sortBy(keys).flatMap((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
-    const hasChanges = !_.isUndefined(value1) && !_.isUndefined(value2) && value1 !== value2;
 
-    if (hasChanges) {
-      if (_.isObject(value1) && _.isObject(value2)) {
-        return { action: null, key, value: findDiff(value1, value2) };
-      }
+    const action = getAction(value1, value2);
+    const valueFrom = ['updated', 'removed'].includes(action) ? getTree(value1) : undefined;
+    let valueTo;
 
-      return [
-        getNode('removed', key, value1),
-        getNode('added', key, value2),
-      ];
+    if (action === 'deepChanges') {
+      valueTo = findDiff(value1, value2);
+    } else if (action !== 'removed') {
+      valueTo = getTree(value2);
     }
 
-    if (_.isUndefined(value2)) {
-      return getNode('removed', key, value1);
-    }
-
-    if (_.isUndefined(value1)) {
-      return getNode('added', key, value2);
-    }
-
-    return getNode(null, key, value1);
+    return {
+      action,
+      key,
+      valueFrom,
+      valueTo,
+    };
   });
 };
 
-const genDiff = (filename1, filename2, formatter = stylish) => {
+const genDiff = (filename1, filename2, formatterName = 'stylish') => {
   const obj1 = parseFile(filename1);
   const obj2 = parseFile(filename2);
+  const formatter = getFormatter(formatterName);
 
   const diff = findDiff(obj1, obj2);
-  console.dir(diff, { depth: null });
 
   return formatter(diff);
 };

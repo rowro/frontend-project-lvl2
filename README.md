@@ -11,3 +11,6 @@
 
 ### Diff recursive structure
 [![asciicast](https://asciinema.org/a/9TXZwIM1cOX95VNBEtneFuRLw.svg)](https://asciinema.org/a/9TXZwIM1cOX95VNBEtneFuRLw)
+
+### Diff plain formatter
+[![asciicast](https://asciinema.org/a/lFdN0nvwtB3bNtOHeIxBGoy4d.svg)](https://asciinema.org/a/lFdN0nvwtB3bNtOHeIxBGoy4d)
